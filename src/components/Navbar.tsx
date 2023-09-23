@@ -6,10 +6,13 @@ import HomeIcon from './ui/icons/HomeIcon';
 import SearchIcon from './ui/icons/SearchIcon';
 import NewIcon from './ui/icons/NewIcon';
 import ColorBtn from './ui/ColorBtn';
+import { useSession, signIn, signOut } from "next-auth/react"
+import Avatar from './Avatar';
 
 export default function Navbar() {
   const pathName = usePathname()
-
+  const { data: session } = useSession()
+  const user = session?.user
   const menu = [
     {
       href: "/",
@@ -41,8 +44,20 @@ export default function Navbar() {
             </li>
           ))
         }
+        {
+          user && (
+            <li>
+              <Avatar image={user.image} size='small' />
+            </li>
+          )
+        }
         <li>
-          <ColorBtn text="Sign in" onClick={() => {}} />
+          {
+            session
+            ? <ColorBtn text="Sign out" onClick={() => signOut()} />
+            : <ColorBtn text="Sign in" onClick={() => signIn()} />
+          }
+          
         </li>
       </ul>
     </div>
