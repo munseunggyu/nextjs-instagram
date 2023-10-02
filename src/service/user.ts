@@ -24,7 +24,7 @@ export async function addUser({username, id,name, email, image}: OAuthUser) {
 export async function getUserByUsername(username:string) {
   // sanity vision에서 test 가능
   return client.fetch(
-    `*[_type == "user" && username == "${username}"]{
+    `*[_type == "user" && username == "${username}"][0]{
       ...,
       "id": _id,
       following[]->{username,image},
