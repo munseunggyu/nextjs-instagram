@@ -11,6 +11,7 @@ import CommentForm from './CommentForm';
 import ActionBar from './ActionBar';
 import ModalPortal from './ui/ModalPortal';
 import PostModal from './PostModal';
+import PostDetail from './PostDetail';
 // import usePosts from '@/hooks/posts';
 // import ActionBar from './ActionBar';
 // import PostDetail from './PostDetail';
@@ -53,9 +54,7 @@ export default function PostListCard({ post, priority = false }: Props) {
       {
         openModal && <ModalPortal>
           <PostModal onClose={() => setOpenModal(false)}>
-            {/* <div className='fixed top-0 left-0 w-full h-full bg-slate-500 z-50'> */}
-              포스트 상세페이지
-            {/* </div> */}
+            <PostDetail post={post} />
           </PostModal>
         </ModalPortal>
       }
