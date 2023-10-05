@@ -71,3 +71,27 @@ export async function searchUsers(keyword?: string) {
       }))
     );
 }
+
+export async function getUserInfo(username?: string) {
+  return client
+    .fetch(
+      `*[_type =="user" && username == "${username}"
+    ][0]{
+      ...,
+      "following": count(following),
+      "followers": count(followers),
+      "posts": count(*[_type=="post" && author->username == "${username}"])
+    }
+    `
+    )
+    .then((users) =>{
+      return {
+        ...users,
+        following: users.following ?? 0,
+        followers: users.followers ?? 0,
+        posts: users.posts ?? 0
+      }
+    })
+}
+
+
